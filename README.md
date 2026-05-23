@@ -39,7 +39,7 @@ The utility performs the following sequential actions:
 
 ## Directory Structure
 
-- `myls.asm` - The main assembly source file.
+- `main.asm` - The main assembly source file.
 - `std.inc` - Custom standard inclusion containing kernel system call macros and standard constants.
 - `test.sh` - Automated test suite verifying directory listing matching.
 - `LICENSE` - MIT License documentation.
@@ -57,7 +57,7 @@ You must have the **Flat Assembler (FASM)** installed and available in your envi
 To compile the assembly source file into a static ELF64 executable, execute:
 
 ```bash
-fasm myls.asm myls
+fasm main.asm ls
 ```
 
 ### Execution
@@ -65,7 +65,7 @@ fasm myls.asm myls
 To run the utility and display the directory contents:
 
 ```bash
-./myls
+./ls
 ```
 
 ---
