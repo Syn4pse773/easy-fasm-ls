@@ -1,10 +1,16 @@
-fasm myls.asm myls > /dev/null 2>&1
+#!/bin/bash
+
+export LC_ALL=C
+
+fasm main.asm ls > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "compilation failed"
     exit 1
 fi
 
-myls_out=$(./myls)
+chmod +x ls
+
+myls_out=$(./ls)
 myls_exit=$?
 
 if [ $myls_exit -ne 0 ]; then
@@ -12,16 +18,17 @@ if [ $myls_exit -ne 0 ]; then
     exit 1
 fi
 
-sorted_myls=$(echo "$myls_out" | sort)
-sorted_ls=$(ls -a | sort)
+sorted_myls=$(printf '%s\n' "$myls_out" | sort)
+sorted_ls=$(command ls -a | sort)
 
 if [ "$sorted_myls" != "$sorted_ls" ]; then
     echo "directory listing mismatch"
     exit 1
 fi
 
-if ! echo "$myls_out" | grep -q "myls.asm"; then
-    echo "myls.asm not found in output"
+
+if ! printf '%s\n' "$myls_out" | grep -q "main.asm"; then
+    echo "Expected file not found in output"
     exit 1
 fi
 
